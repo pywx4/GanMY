@@ -49,3 +49,28 @@ docker Engine启动container时，若本地没有对应镜像，会从外网Dock
 * 变更管理
   容器文件系统的变更可以提交到新的景象中，并可重复使用以创建更多容器。无需使用模板或手动配置
 * 交互式shell
+
+
+# 安装
+1. centos 7 YUM源设置如下
+>$ `sudo vim /etc/yum.repos.d/docker.repo`
+```
+[dockerrepo]
+name = Docker Repository
+baseurl = http://yum.dockerproject.org/repo/main/centos/7/
+enabled = 1
+gpgcheck = 0
+```
+
+* 开启路由转发功能---> 否则容器中的实例将无法上网
+**Way 1:** 修改/etc/systemctl.conf中的文件，将 net.ipv4.ip_forward = 1
+**Way 2:** echo 1 > /proc/sys/net/ipv4/ip/ip_forward
+
+* 安装docker-engine
+>$ `sudo yum install docker-engine -y`
+
+* 设置开机启动[可选]
+>$ `sudo systemctl enabled docker`
+
+* 启动docker服务
+>$ `sudo systemctl start docker`
