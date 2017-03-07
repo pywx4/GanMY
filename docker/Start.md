@@ -163,12 +163,80 @@ Step 2: Run the whalesay image
 
 ### 4. create your own image and run it in a container
 自己创建镜像，并在容器中运行
+```
+[root@CentOS-7 ~]# docker images
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+hello-world         latest              48b5124b2768        7 weeks ago         1.84 kB
+docker/whalesay     latest              6b362a9f73eb        21 months ago       247 MB
+[root@CentOS-7 ~]# mkdir mydockerbuild
+[root@CentOS-7 ~]# cd mydockerbuild/
+[root@CentOS-7 mydockerbuild]# vim Dockerfile
+[root@CentOS-7 mydockerbuild]# cat Dockerfile
+FROM docker/whalesay:latest
+RUN apt-get -y update && apt-get install -y fortunes
+CMD /usr/games/fortune -a | cowsay
+[root@CentOS-7 mydockerbuild]# docker build -t docker-whale .
+```
+
+```
+    Docker checks to make sure it has everything it needs to build. This generates this message:
+
+    Sending build context to Docker daemon 2.048 kB
+
+    Docker checks to see whether it already has the whalesay image locally and pulls it from Docker hub if not. In this case, the image already exists locally because you pulled it in a previous task. This corresponds to FROM statement in the Dockerfile, and generates this message:
+
+    Step 1 : FROM docker/whalesay:latest
+     ---> 6b362a9f73eb
+
+    At the end of each step, an ID is printed. This is the ID of the layer that was created by this step. Each line in a Dockerfile corresponds to a layer in the image. Your ID will be different.
+
+    Docker starts up a temporary container running the whalesay image (the Running in line below). In the temporary container, Docker runs the next command in the Dockerfile, which is the RUN command, which installs the fortune command. This generates a lot of lines of output, just like you would see if you were manually running the apt-get commands on an Ubuntu host.
+
+    Step 2 : RUN apt-get -y update && apt-get install -y fortunes
+     ---> Running in 05d4eda04526
+    Removing intermediate container 05d4eda04526
+
+    When the RUN command finishes, a new layer is created and the intermediate container is removed.
+
+    A new intermediate container is created, and Docker adds a layer for the CMD line in the Dockerfile, and removes the intermediate container.
+
+    Step 3 : CMD /usr/games/fortune -a | cowsay
+     ---> Running in a8e6faa88df3
+     ---> 7d9495d03763
+    Removing intermediate container a8e6faa88df3
+    Successfully built 7d9495d03763
+
+You have now built an image called docker-whale.
+```
+
+> ` docker run docker-whale`
 
 ### 5. create a Docker Hub account and an image repository
 创建一个Docker Hub账号，和一个image仓库
-https://docs.docker.com/engine/getstarted/step_five/
+
+[Goto the sign up Page](https://hub.docker.com/)
+
+and then Verify your email and add a repository
+
 ### 6. create an image of your own
 创建一个自己的镜像
 
 ### 7. push your image to Docker Hub for others to use
 将镜像上传到Docker Hub共享
+docker images
+
+docker tag [images ID] [account name]/[image name]:[version label or tag]
+\# docker tag 7d9495d03763 maryatdocker/docker-whale:latest
+
+docker login
+  Username:*****
+  Password:*****
+  Login Succeeded
+
+docker push pywx4/docker-whale:latest
+
+docker image rm -f 7d9495d03763
+
+docker run yourusername/docker-whale
+
+https://docs.docker.com/engine/getstarted-voting-app/#what-youll-learn-and-do
