@@ -24,5 +24,10 @@
 * Set Root Passwd
 
 * Partition disks
-  * Manual
-    * sda create a disk for LVM
+思路
+1. 创建一个普通分区  大小1G 挂在/boot分区 设置为可引导
+* 创建一个大的分区，修改格式类型位LVM
+* 编辑上面创建的LVM分区  ---> Configure th Logical Volume Manager
+* 在LVM中创建三个分区 分别用于挂载  根目录 交换分区 变量分区->var
+详细分区如下：
+![alt](./LVM_Partitioning.png)
