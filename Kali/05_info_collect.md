@@ -3,8 +3,16 @@
 DNS  域名系统(Domain Name Service)
 将域名与IP地址相互映射的一个分布式数据库
 作用：使人们可以更方便的访问互联网，而不用记住IP
-1. Dnsenum
+1. Dnsenum # 查询域名及DNS服务器
+区域传送
+
+>*使用字典暴力破解dns服务器*
+
+>`dnsenum -f <passwd_file> <server_url>`
+
 2. Dnsmap
+类似上面的命令
+
 3. Dnsmap-bulk
 4. Dnsrecon
 
