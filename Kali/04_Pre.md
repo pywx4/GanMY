@@ -17,7 +17,8 @@
 
     deb-src http://mirrors.aliyun.com/kali-security/ sana/updates main contrib non-free
 
-## 3. apt-get update & apt-get upgrade
+## 3. 更新
+apt-get update & apt-get upgrade
 
 apt-get dist-upgrade
 
@@ -64,6 +65,11 @@ gateway 192.168.31.1
 
 ## 3. `reboot`
 
+---
+PermitRootLogin #禁止root登陆
+PasswordAuthentication yes # 密码验证登陆
+PubkeyAuthentication
+AuthorizedKeysFile %h/.ssh/authorized_keys
 ---
 
 # 一.查看Linux内核版本命令（两种方法）：
